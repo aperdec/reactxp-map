@@ -11,6 +11,7 @@ let RX = require('reactxp');
 let ReactDOM = require('react-dom');
 let MapView = require('react-native-maps');
 let Marker = require('./Marker');
+import {PermissionsAndroid} from 'react-native';
 
 const _styles = {
   map: {
@@ -109,7 +110,7 @@ class ReactXPMap extends React.Component {
           provider="google"
           mapType={MapType[this.props.mapType] || "standard"}
         >
-          {this.props.showLocation && this.state.location &&
+          {this.props.showLocation && PermissionsAndroid.check('android.permission.ACCESS_FINE_LOCATION') && this.state.location &&
             <Marker latitude={this.state.location.latitude}
                     longitude={this.state.location.longitude}
                     title={this.props.locationText|| "Your current location"}
